@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <h1>Estoy en el dashboard</h1>
+    <h1>Estoy en el Dashboard</h1>
     <v-container>
       <v-card max-height="500" max-width="800" class="overflow-y-auto">
         <v-cart-text>
