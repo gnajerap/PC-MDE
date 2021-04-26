@@ -1,5 +1,16 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div id="about" style="margin-left:50px;" class="mx-10">
+    <h1>{{ title }}</h1>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'About',
+  data() {
+    return {
+      title: 'Sistema de Punto de Venta'
+    }
+  }
+}
+</script>

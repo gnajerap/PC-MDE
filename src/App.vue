@@ -1,32 +1,71 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <v-app class="grey lighten-4">
+      <!-- <NavigationMenu
+        :nav-links="navLinks"
+        :image-path="require('./assets/logo.png')"
+        background="#fff"
+        link-color="#777"
+        hoverBackground="#ddd"
+      /> -->
+      <NavBar :nav-links="navLinks" />
+      <v-main class="mx-4">
+        <router-view></router-view>
+      </v-main>
+    </v-app>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+// import Main from './components/Main'
+// import NavigationMenu from '@/components/NavigationMenu'
+import NavBar from '@/components/NavBar-vf'
 
-#nav {
-  padding: 30px;
+export default {
+  name: 'App',
+  components: {
+    // NavigationMenu,
+    NavBar,
+  },
+  data() {
+    return {
+      navLinks: [
+        {
+          text: 'Dashboard',
+          path: '/',
+          icon: 'mdi-view-dashboard',
+        },
+        {
+          text: 'Conf. Empresa',
+          path: '/Empresa',
+          icon: 'mdi-chess-rook',
+        },
+        {
+          text: 'Productos',
+          path: '/Productos',
+          icon: 'mdi-noodles',
+        },
+        {
+          text: 'Usuarios',
+          path: '/Usuarios',
+          icon: 'mdi-account-supervisor-circle',
+        },
+        {
+          text: 'Facturación',
+          path: '/facturacion',
+          icon: 'mdi-receipt',
+        },
+        {
+          text: 'Acerca de',
+          path: '/About',
+          icon: 'mdi-information-outline',
+        },
+      ],
+    }
+  },
 }
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style scoped lang="scss">
+// @import 'https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css';
 </style>

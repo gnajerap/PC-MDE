@@ -1,0 +1,20 @@
+export const GET_PRODUCTOS = 'getProductos'
+export const ADD_PRODUCTO = 'addProductos'
+export const UPDATE_PRODUCTO = 'updateProductos'
+export const DELETE_PRODUCTO = 'deleteProductos'
+
+export const GET_USUARIOS = 'getUsuarios'
+export const ADD_USUARIOS = 'addUsuario'
+export const UPDATE_USUARIOS = 'updateUsuario'
+export const DELETE_USUARIOS = 'deleteUsuario'
+
+export const GET_FACTURAS = 'getFacturas'
+export const ADD_FACTURA = 'addFactura'
+export const UPDATE_FACTURA = 'updateFactura'
+export const DELETE_FACTURA = 'deleteFactura'
+export const NULLIFY_FACTURA = 'nullifyFactura'
+
+export const GET_EMPRESAS = 'getEmpresas'
+export const ADD_EMPRESA = 'addEmpresas'
+export const UPDATE_EMPRESA = 'updateEmpresas'
+export const DELETE_EMPRESA = 'deleteEmpresas'
