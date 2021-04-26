@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>Mantemiento de Datos de la empresa</h1>
+    <h1>Mantemiento de Datos de la Empresa</h1>
     <v-card>
       <v-card-title></v-card-title>
       <v-card-text>

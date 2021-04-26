@@ -2,7 +2,7 @@
   <v-dialog max-width="600px" max-height="800px" persistent v-model="dialog">
     <template v-slot:activator="{ on }">
       <v-btn v-bind="size" slot="activator" class="primary" v-on="on"
-        >Cliente</v-btn
+        >Información del Cliente</v-btn
       >
     </template>
     <v-card>
