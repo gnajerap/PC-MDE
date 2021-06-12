@@ -4,9 +4,9 @@
     <v-row class="signing">
       <v-col cols="8" class="left">
         <v-row>
-          <h1 class="text-center pa-5">Ceviches de La esquina</h1>
+          <h1 class="text-center pa-5">Ceviches de la esquina</h1>
           <h3 class="text-center pa-5 text-capitalize">
-            Bienvenido, sistema de Control de Facturación
+            Bienvenido, Sistema de Control de Facturación, e Inventarios
           </h3>
         </v-row>
         <v-row> </v-row>
@@ -85,7 +85,8 @@ export default {
         tamano: (val) =>
           (val && val.length >= 6) || 'Debe tener al menos 6 caracteres',
         email: (value) => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'Correo incorrecto.'
         },
       },
