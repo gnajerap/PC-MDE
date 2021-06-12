@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const getCategorias = function(token) {
-  console.log('Token en getCategorias',token)
+  console.log('Token en getCategorias', token)
   return new Promise((resolve, reject) => {
     try {
       let categorias = []
@@ -11,7 +11,7 @@ const getCategorias = function(token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/categorias`
-            : (process.env.VUE_APP_UR = +``),
+            : process.env.VUE_APP_UR + ``,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
@@ -39,7 +39,7 @@ const addCategoria = function(categoria, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/categorias`
-            : (process.env.VUE_APP_URL = +``),
+            : process.env.VUE_APP_URL + ``,
         ContentType: 'application/json',
         data: categoria,
         headers: {
@@ -63,7 +63,7 @@ const updateCategoria = function(categoria, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/categorias`
-            : (process.env.VUE_APP_URL = +``),
+            : process.env.VUE_APP_URL + ``,
         ContentType: 'application/json',
         data: categoria,
         headers: {
@@ -87,7 +87,7 @@ const deleteCategoria = function(codCategoria, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/categorias/${codCategoria}`
-            : (process.env.VUE_APP_URL = +``),
+            : process.env.VUE_APP_URL + ``,
         headers: {
           'auth-token': token
         }
@@ -116,7 +116,7 @@ const getProductos = function(token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/productos`
-            : (process.env.VUE_APP_UR = +``),
+            : process.env.VUE_APP_UR + ``,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
@@ -144,7 +144,7 @@ const addProducto = function(producto, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/productos`
-            : (process.env.VUE_APP_URL = +``),
+            : process.env.VUE_APP_URL + ``,
         ContentType: 'application/json',
         data: producto,
         headers: {
@@ -166,7 +166,7 @@ const updateProducto = function(producto, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/productos/`
-            : (process.env.VUE_APP_UR = +``),
+            : process.env.VUE_APP_UR + ``,
         ContentType: 'application/json',
         data: producto,
         headers: {
@@ -189,9 +189,10 @@ const deleteProducto = function(producto, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/productos/${producto.NumeroIdentificacion}/${producto.CodProducto}`
-            : (process.env.VUE_APP_URL = +`/:${producto.NumeroIdentificacion}/:${producto.CodProducto}`),
+            : process.env.VUE_APP_URL +
+              `/:${producto.NumeroIdentificacion}/:${producto.CodProducto}`,
         ContentType: 'application/json',
-        headers : {
+        headers: {
           'auth-token': token
         }
       })
@@ -222,7 +223,7 @@ const getUsuarios = function(token) {
             ? `http://localhost:8082/api/user`
             : process.env.VUE_APP_URL,
         ContentType: 'application/json',
-        headers : {
+        headers: {
           'auth-token': token
         }
       }).then(usrs => {
@@ -250,10 +251,10 @@ const addUsuario = function(usuario, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/user/register`
-            : (process.env.VUE_APP_URL = +``),
+            : process.env.VUE_APP_URL + ``,
         ContentType: 'application/json',
         data: usuario,
-        headers : {
+        headers: {
           'auth-token': token
         }
       }).then(usr => {
@@ -278,7 +279,7 @@ const updateUsuario = function(usuario, token) {
             : process.env.VUE_APP_URL,
         ContentType: 'application/json',
         data: usuario,
-        headers : {
+        headers: {
           'auth-token': token
         }
       }).then(usuario => {
@@ -302,7 +303,7 @@ const updateUsuarioClave = function(usuario, token) {
             : process.env.VUE_APP_URL,
         ContentType: 'application/json',
         data: usuario,
-        headers : {
+        headers: {
           'auth-token': token
         }
       }).then(usuario => {
@@ -360,9 +361,9 @@ const deleteUsuario = function(usuario, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/user/${usuario.IdUsuario}`
-            : (process.env.VUE_APP_URL = +`/${usuario.IdUsuario}`),
+            : process.env.VUE_APP_URL + `/${usuario.IdUsuario}`,
         ContentType: 'application/json',
-        headers : {
+        headers: {
           'auth-token': token
         }
       })
@@ -390,9 +391,9 @@ const getEmpresas = function(token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/empresas`
-            : (process.env.VUE_APP_UR = +``),
+            : process.env.VUE_APP_UR + ``,
         ContentType: 'application/json',
-        headers : {
+        headers: {
           'auth-token': token
         }
       }).then(emp => {
@@ -411,7 +412,7 @@ const getEmpresas = function(token) {
 }
 
 const addEmpresa = function(empresa, token) {
-  console.log('token', token);
+  console.log('token', token)
   return new Promise((resolve, reject) => {
     try {
       this.getEmpresas().then(empresasToAdd => {
@@ -431,8 +432,8 @@ const addEmpresa = function(empresa, token) {
   })
 }
 
-const updateEmpresa = async function(empresa,token) {
-  console.log('token', token);
+const updateEmpresa = async function(empresa, token) {
+  console.log('token', token)
   try {
     await this.deleteEmpresa(empresa.Identificacion)
     await this.addEmpresa(empresa)
@@ -442,8 +443,8 @@ const updateEmpresa = async function(empresa,token) {
   }
 }
 
-const deleteEmpresa = function(idEmpresa,token) {
-  console.log('token', token);
+const deleteEmpresa = function(idEmpresa, token) {
+  console.log('token', token)
   return new Promise((resolve, reject) => {
     try {
       getEmpresas().then(empresas => {
