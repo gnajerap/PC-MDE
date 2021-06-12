@@ -32,13 +32,23 @@ export default {
       navLinks: [
         {
           text: 'Dashboard',
-          path: '/',
+          path: '/Dashboard',
           icon: 'mdi-view-dashboard',
         },
         {
           text: 'Conf. Empresa',
           path: '/Empresa',
           icon: 'mdi-chess-rook',
+        },
+        {
+          text: 'Sucursales',
+          path: '/Sucursales',
+          icon: 'mdi-map-marker-radius-outline',
+        },
+        {
+          text: 'Categorías',
+          path: '/Categorias',
+          icon: 'mdi-file-tree-outline',
         },
         {
           text: 'Productos',
@@ -54,6 +64,7 @@ export default {
           text: 'Facturación',
           path: '/facturacion',
           icon: 'mdi-receipt',
+          role:'Ventas|Administrador|',
         },
         {
           text: 'Acerca de',

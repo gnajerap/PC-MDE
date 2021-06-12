@@ -1,62 +1,417 @@
-//import * as axios from 'axios'
+import axios from 'axios'
 
-const getProductos = function() {
+const getCategorias = function(token) {
+  console.log('Token en getCategorias',token)
+  return new Promise((resolve, reject) => {
+    try {
+      let categorias = []
+      console.log('Entre a cargar categorias')
+      axios({
+        method: 'get',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/categorias`
+            : (process.env.VUE_APP_UR = +``),
+        ContentType: 'application/json',
+        headers: {
+          'auth-token': token
+        }
+      }).then(cats => {
+        if (cats === null || undefined) {
+          categorias = []
+        } else {
+          categorias = cats
+        }
+        console.log('Categorias en Data-Service GetCategorias', categorias.data)
+        resolve(categorias.data)
+      })
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+const addCategoria = function(categoria, token) {
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'post',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/categorias`
+            : (process.env.VUE_APP_URL = +``),
+        ContentType: 'application/json',
+        data: categoria,
+        headers: {
+          'auth-token': token
+        }
+      }).then(cat => {
+        console.log('Resultado del addCategoria DataService:', cat.data)
+        resolve(cat.data)
+      })
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+const updateCategoria = function(categoria, token) {
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'put',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/categorias`
+            : (process.env.VUE_APP_URL = +``),
+        ContentType: 'application/json',
+        data: categoria,
+        headers: {
+          'auth-token': token
+        }
+      }).then(cat => {
+        console.log('Actualizado:', cat.data)
+        resolve(cat.data)
+      })
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+const deleteCategoria = function(codCategoria, token) {
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'delete',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/categorias/${codCategoria}`
+            : (process.env.VUE_APP_URL = +``),
+        headers: {
+          'auth-token': token
+        }
+      })
+        .then(cat => {
+          console.log('Actualizado:', cat.data)
+          resolve(cat.data)
+        })
+        .catch(err => {
+          console.log('Se fue por el catch del Axios, error:', err)
+          reject(err)
+        })
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+const getProductos = function(token) {
   return new Promise((resolve, reject) => {
     try {
       let productos = []
-      const response = JSON.parse(localStorage.getItem('productos'))
-
-      if (response === null || response === undefined) {
-        productos = []
-      } else {
-        productos = response
-      }
-      resolve(productos)
+      console.log('Entre a cargar productos')
+      axios({
+        method: 'get',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/productos`
+            : (process.env.VUE_APP_UR = +``),
+        ContentType: 'application/json',
+        headers: {
+          'auth-token': token
+        }
+      }).then(prods => {
+        if (prods === null || undefined) {
+          productos = []
+        } else {
+          productos = prods
+        }
+        console.log('Productos en getProductos DataService:', productos.data)
+        resolve(productos.data)
+      })
     } catch (error) {
       reject(error)
     }
   })
 }
 
-const getEmpresas = function() {
+const addProducto = function(producto, token) {
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'post',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/productos`
+            : (process.env.VUE_APP_URL = +``),
+        ContentType: 'application/json',
+        data: producto,
+        headers: {
+          'auth-token': token
+        }
+      }).then(prod => {
+        resolve(prod.data)
+      })
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+const updateProducto = function(producto, token) {
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'put',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/productos/`
+            : (process.env.VUE_APP_UR = +``),
+        ContentType: 'application/json',
+        data: producto,
+        headers: {
+          'auth-token': token
+        }
+      }).then(prod => {
+        resolve(prod.data)
+      })
+    } catch (error) {
+      console.error('data.service=> updateProducto: ', error)
+    }
+  })
+}
+
+const deleteProducto = function(producto, token) {
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'delete',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/productos/${producto.NumeroIdentificacion}/${producto.CodProducto}`
+            : (process.env.VUE_APP_URL = +`/:${producto.NumeroIdentificacion}/:${producto.CodProducto}`),
+        ContentType: 'application/json',
+        headers : {
+          'auth-token': token
+        }
+      })
+        .then(response => {
+          console.log('Eliminado:', response.data.prodBorrar)
+          resolve(response.data.prodBorrar)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    } catch (error) {
+      console.error('data.service=> deleteProducto: ', error)
+      reject(error)
+    }
+  })
+}
+
+const getUsuarios = function(token) {
+  return new Promise((resolve, reject) => {
+    try {
+      let usuarios = []
+      console.log('DataService: Entre a cargar usuarios')
+
+      axios({
+        method: 'get',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/user`
+            : process.env.VUE_APP_URL,
+        ContentType: 'application/json',
+        headers : {
+          'auth-token': token
+        }
+      }).then(usrs => {
+        if (usrs === null || undefined) {
+          usuarios = []
+        } else {
+          usuarios = usrs
+        }
+        console.log('Usuarios en getUsuarios DataService:', usuarios.data)
+        resolve(usuarios.data)
+      })
+    } catch (error) {
+      // console.log('Error en el catch de getUsuarios',error);
+      reject(error)
+    }
+  })
+}
+
+const addUsuario = function(usuario, token) {
+  console.log('Usuario en dataservice', usuario)
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'post',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/user/register`
+            : (process.env.VUE_APP_URL = +``),
+        ContentType: 'application/json',
+        data: usuario,
+        headers : {
+          'auth-token': token
+        }
+      }).then(usr => {
+        console.log('Resultado del addUsuario DataService:', usr.data)
+        resolve(usr.data)
+      })
+    } catch (error) {
+      console.log('Error en el catch de addUsuario:', error)
+      reject(error)
+    }
+  })
+}
+
+const updateUsuario = function(usuario, token) {
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'put',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/user/`
+            : process.env.VUE_APP_URL,
+        ContentType: 'application/json',
+        data: usuario,
+        headers : {
+          'auth-token': token
+        }
+      }).then(usuario => {
+        console.log('Actualizado:', usuario.data)
+        resolve(usuario.data)
+      })
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+const updateUsuarioClave = function(usuario, token) {
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'put',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/user/pwdChange/`
+            : process.env.VUE_APP_URL,
+        ContentType: 'application/json',
+        data: usuario,
+        headers : {
+          'auth-token': token
+        }
+      }).then(usuario => {
+        // console.log('Actualizado el pwd:', usuario.data)
+        resolve(usuario.data)
+      })
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+const loginUsuario = function(loginUsuario, token) {
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'post',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/user/login/`
+            : process.env.VUE_APP_URL,
+        ContentType: 'application/json',
+        data: loginUsuario
+        // headers : {
+        //   'auth-token': token
+        // }
+      })
+        .then(loggedUser => {
+          console.log('Resultado del Login DataService:', loggedUser.data)
+          window.localStorage.setItem(
+            'loggedUser',
+            JSON.stringify(loggedUser.data)
+          )
+          resolve(loggedUser.data)
+        })
+        .catch(error => {
+          console.log(
+            'Error en el catch de loginUsuario en Data Service',
+            error.msg
+          )
+          reject(error)
+        })
+    } catch (error) {
+      console.log('Error en el catch de Login:', error.msg)
+      reject(error)
+    }
+  })
+}
+
+const deleteUsuario = function(usuario, token) {
+  return new Promise((resolve, reject) => {
+    try {
+      axios({
+        method: 'delete',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/user/${usuario.IdUsuario}`
+            : (process.env.VUE_APP_URL = +`/${usuario.IdUsuario}`),
+        ContentType: 'application/json',
+        headers : {
+          'auth-token': token
+        }
+      })
+        .then(response => {
+          console.log('Eliminado: ', response.data)
+          resolve(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    } catch (error) {
+      console.error('data.service=> deleteUsuario: ', error)
+      reject(error)
+    }
+  })
+}
+
+const getEmpresas = function(token) {
   return new Promise((resolve, reject) => {
     try {
       let empresas = []
-      const response = JSON.parse(localStorage.getItem('empresas'))
-      if (!response) {
-        empresas = []
-      } else {
-        empresas = response
-      }
-      resolve(empresas)
-    } catch (error) {
-      reject(error)
-    }
-  })
-}
-
-const addProducto = function(producto) {
-  return new Promise((resolve, reject) => {
-    try {
-      //console.log('Producto en addProducto:', producto)
-      this.getProductos().then(productosToAdd => {
-        if (productosToAdd) {
-          productosToAdd.push(producto)
-        } else {
-          productosToAdd = []
-          productosToAdd.push(producto)
+      console.log('Entre a cargar empresas')
+      axios({
+        method: 'get',
+        url:
+          process.env.NODE_ENV == 'development'
+            ? `http://localhost:8082/api/empresas`
+            : (process.env.VUE_APP_UR = +``),
+        ContentType: 'application/json',
+        headers : {
+          'auth-token': token
         }
-        localStorage.setItem('productos', JSON.stringify(productosToAdd))
-        resolve(producto)
+      }).then(emp => {
+        if (emp === null || undefined) {
+          empresas = []
+        } else {
+          empresas = emp
+        }
+        console.log('Empresas en getEmpresas DataService:', empresas.data)
+        resolve(empresas.data)
       })
-      //console.log('DataService=> Productos despues del getProductos:', productos);
     } catch (error) {
       reject(error)
     }
   })
 }
 
-const addEmpresa = function(empresa) {
+const addEmpresa = function(empresa, token) {
+  console.log('token', token);
   return new Promise((resolve, reject) => {
     try {
       this.getEmpresas().then(empresasToAdd => {
@@ -76,7 +431,8 @@ const addEmpresa = function(empresa) {
   })
 }
 
-const updateEmpresa = async function(empresa) {
+const updateEmpresa = async function(empresa,token) {
+  console.log('token', token);
   try {
     await this.deleteEmpresa(empresa.Identificacion)
     await this.addEmpresa(empresa)
@@ -86,39 +442,8 @@ const updateEmpresa = async function(empresa) {
   }
 }
 
-const updateProducto = async function(producto) {
-  try {
-    console.log('Producto a acualizar:', producto)
-    await this.deleteProducto(producto.IdProducto)
-    await this.addProducto(producto)
-    return producto
-  } catch (error) {
-    console.error('data.service=> updateProducto: ', error)
-  }
-}
-
-const deleteProducto = function(idProducto) {
-  return new Promise((resolve, reject) => {
-    try {
-      //const productos = await getProductos()
-      getProductos().then(productos => {
-        // console.log('Data.Service deleteProducto => producto a Borrar', idProducto)
-        productos.forEach((producto, index) => {
-          if (producto.IdProducto === idProducto) {
-            productos.splice(index, 1)
-          }
-          localStorage.setItem('productos', JSON.stringify(productos))
-          resolve(idProducto)
-        })
-      })
-    } catch (error) {
-      console.error('data.service=> deleteProducto: ', error)
-      reject(error)
-    }
-  })
-}
-
-const deleteEmpresa = function(idEmpresa) {
+const deleteEmpresa = function(idEmpresa,token) {
+  console.log('token', token);
   return new Promise((resolve, reject) => {
     try {
       getEmpresas().then(empresas => {
@@ -145,5 +470,15 @@ export const dataService = {
   getEmpresas,
   addEmpresa,
   updateEmpresa,
-  deleteEmpresa
+  deleteEmpresa,
+  getCategorias,
+  addCategoria,
+  updateCategoria,
+  deleteCategoria,
+  getUsuarios,
+  addUsuario,
+  loginUsuario,
+  updateUsuario,
+  updateUsuarioClave,
+  deleteUsuario
 }

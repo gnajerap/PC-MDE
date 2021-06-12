@@ -3,14 +3,18 @@
     <v-app-bar flat app>
       <v-app-bar-nav-icon
         class="grey--text"
-        @click="drawerState = !drawerState"
+        @click="drawerState = isLoggedIn"
       ></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase grey-text">
         <span class="font-weight-light">POS</span>
         <span class="">Restaurante</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text color="grey">
+      <v-btn v-if="!isLoggedIn" text color="grey" router to="/">
+        <span>Login</span>
+        <v-icon right>mdi-login</v-icon>
+      </v-btn>
+      <v-btn v-else @click="logout" text color="grey">
         <span>Salir</span>
         <v-icon right>mdi-exit-to-app</v-icon>
       </v-btn>
@@ -38,13 +42,35 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: ['navLinks'],
-
   data() {
     return {
       drawerState: false,
     }
+  },
+  async created() {
+    console.log('Pase por el created:')
+    await this.$store.dispatch('loadUserLoggedAction')
+    
+  },
+  methods: {
+    logout() {
+      const login = {
+        id: null,
+        token: null,
+        role: null,
+      }
+      this.$store.dispatch('logoutAction', login)
+      this.$router.push({
+        path: '/',
+        redirect: '/Login',
+      })
+    },
+  },
+  computed: {
+    ...mapGetters(['isLoggedIn']),
   },
 }
 </script>

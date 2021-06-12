@@ -35,6 +35,9 @@
             v-model="correoClienteLocal"
           >
           </v-text-field>
+          <v-switch label="Enviar Correo ?" v-model="enviarCorreoLocal"
+            >Envia Corrreo</v-switch
+          >
         </v-form>
       </v-card-text>
       <v-card-actions>
@@ -66,12 +69,16 @@ export default {
       type: String,
       required: true,
     },
-    cliente: {
-      type: Object,
-      // required: true,
-    },
+    // cliente: {
+    //   type: Object,
+    //   // required: true,
+    // },
     correoCliente: {
       type: String,
+      required: true,
+    },
+    enviarCorreo: {
+      type: Boolean,
       required: true,
     },
   },
@@ -81,8 +88,10 @@ export default {
       cedulaClienteLocal: this.cedulaCliente,
       nombreClienteLocal: this.nombreCliente,
       correoClienteLocal: this.correoCliente,
+      enviarCorreoLocal: this.enviarCorreo,
       valid: true,
       dialog: false,
+
       tiposId: [
         '01 - Cédula Física',
         '02 - Cédula Jurídica',
@@ -125,6 +134,7 @@ export default {
         cedulaCliente: this.cedulaClienteLocal,
         nombreCliente: this.nombreClienteLocal,
         correoCliente: this.correoClienteLocal,
+        enviarCorreo: this.enviarCorreoLocal,
       })
       this.dialog = false
     },
@@ -133,6 +143,7 @@ export default {
       this.cedulaClienteLocal = this.cedulaCliente
       this.nombreClienteLocal = this.nombreCliente
       this.correoClienteLocal = this.correoCliente
+      this.enviarCorreoLocal = this.enviarCorreo
       this.dialog = false
     },
   },

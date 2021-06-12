@@ -1,0 +1,251 @@
+<template>
+  <v-data-table
+    :headers="headers"
+    :items="categorias"
+    sort-by="CodCategoria"
+    class="elevation-1"
+  >
+    <template v-slot:top>
+      <v-toolbar flat>
+        <v-toolbar-title class="subheading grey--text">
+          Categorías
+        </v-toolbar-title>
+        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-spacer></v-spacer>
+        <v-dialog
+          v-model="dialog"
+          max-width="800px"
+          max-heigth="600px"
+          persistent
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+              Categoría Nueva
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" md="4">
+                    <v-text-field
+                      v-model="editedItem.CodCategoria"
+                      label="Código Categoría"
+                      disabled
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4">
+                    <v-text-field
+                      v-model="editedItem.Descripcion"
+                      label="Descripción"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4">
+                    <v-select
+                      :items="Estados"
+                      v-model="editedItem.Estado"
+                      label="Estado"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.Color"
+                      label="Color"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-color-picker
+                      v-model="editedItem.Color"
+                      class="ma-2"
+                      hide-canvas
+                    ></v-color-picker>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="close">
+                Cancelar
+              </v-btn>
+              <v-btn color="blue darken-1" text @click="save"> Guardar </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="dialogDelete" max-width="550px" persistent>
+          <v-card>
+            <v-card-title class="headline"
+              >Está seguro que desea eliminar la categoría:
+              {{ editedItem.CodCategoria }} - {{ editedItem.Descripcion }}?
+            </v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeDelete"
+                >Cancelar</v-btn
+              >
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                >Aceptar</v-btn
+              >
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+      <v-snackbar
+        v-model="snackBarVisible"
+        :timeout="snackBarTimeOut"
+        :top="true"
+        :color="snackBarColor"
+      >
+        {{ snackBarText }}</v-snackbar
+      >
+    </template>
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+    </template>
+    <template v-slot:no-data>
+      <v-btn color="primary" dark @click="initialize"> Reset </v-btn>
+    </template>
+  </v-data-table>
+</template>
+
+<script>
+import { mapGetters, mapState } from 'vuex'
+export default {
+  name: 'Categorias',
+  data() {
+    return {
+      snackBarVisible: false,
+      snackBarTimeOut: 3000,
+      snackBarColor: 'warning',
+      snackBarText: '',
+      dialog: false,
+      dialogDelete: false,
+      headers: [
+        { text: 'Cód. Categoría', value: 'CodCategoria', sortable: false },
+        { text: 'Descripción', value: 'Descripcion' },
+        { text: 'Estado', value: 'Estado' },
+        { text: 'Color', value: 'Color' },
+        { text: 'Actions', value: 'actions', sortable: false },
+      ],
+      editedIndex: -1,
+      editedItem: {
+        CodCategoria: '',
+        Descripcion: '',
+        Estado: '',
+        Color: '',
+      },
+      defaultItem: {
+        CodCategoria: '',
+        Descripcion: '',
+        Estado: 'Activo',
+        Color: '',
+      },
+      Estados: ['Activa', 'Inactiva'],
+    }
+  },
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? 'Nueva Categoría' : 'Editar Categoría'
+    },
+    ...mapGetters({
+      categorias: 'getCategorias',
+      productos: 'getProductos',
+    }),
+    ...mapState({
+      loggedUser: 'loggedUser',
+    }),
+  },
+  watch: {
+    dialog(val) {
+      val || this.close()
+    },
+    dialogDelete(val) {
+      val || this.closeDelete()
+    },
+  },
+  created() {
+    this.initialize()
+  },
+  methods: {
+    initialize() {
+      this.$store.dispatch('getCategoriasAction').then((cats) => {
+        console.log('Categorias => Finalizada la carga:', cats)
+      })
+      this.$store.dispatch('getProductosAction').then((prods) => {
+        console.log('Productos => Finalizada la carga de Prods:', prods)
+      })
+    },
+    editItem(categoria) {
+      console.log(`Editando: ${Object.values(categoria)}`)
+      this.editedIndex = this.categorias.indexOf(categoria)
+      this.editedItem = Object.assign({}, categoria)
+      this.dialog = true
+    },
+
+    deleteItem(item) {
+      let cantidadProds = this.productos.filter(
+        (p) => p.CodCategoria === item.CodCategoria
+      ).length
+
+      if (cantidadProds === 0) {
+        this.editedIndex = this.categorias.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialogDelete = true
+      } else {
+        this.snackBarVisible = true
+        this.snackBarText = `No se puede borrar: ${item.Descripcion} porque tiene ${cantidadProds} producto(s) relacionados`
+      }
+    },
+    deleteItemConfirm() {
+      this.categorias.splice(this.editedIndex, 1)
+      this.$store.dispatch('deleteCategoriaAction', this.editedItem)
+      // this.initialize()
+      this.closeDelete()
+    },
+    close() {
+      this.dialog = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+    closeDelete() {
+      this.dialogDelete = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+    save() {
+      console.log('editedIndex', this.editedIndex)
+
+      if (this.editedIndex > -1) {
+        Object.assign(this.categorias[this.editedIndex], this.editedItem)
+        this.$store.dispatch('updateCategoriaAction', this.editedItem)
+      } else {
+        const numcat = String(this.categorias.length + 1).padStart(3, '0')
+        this.editedItem.CodCategoria = numcat
+        console.log('editedItem', this.editedItem)
+        this.$store
+          .dispatch('addCategoriaAction', this.editedItem)
+          .then((resultado) => {
+            console.log('Resultado del insert:', resultado)
+          })
+          .catch((resultado) => {
+            console.log('Resultado del reject:', resultado)
+          })
+      }
+      this.close()
+    },
+  },
+}
+</script>
