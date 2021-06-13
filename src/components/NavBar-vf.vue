@@ -54,6 +54,7 @@ export default {
     console.log('Pase por el created:')
     await this.$store.dispatch('loadUserLoggedAction')
     console.log('Environment Vars:', process.env)
+    console.log('Environment Variable del api:', process.env.VUE_APP_URL)
   },
   methods: {
     logout() {
