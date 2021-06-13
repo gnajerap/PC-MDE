@@ -11,7 +11,7 @@ const getCategorias = function(token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/categorias`
-            : process.env.VUE_APP_URL + ``,
+            : process.env.VUE_APP_URL + `categorias`,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
@@ -39,7 +39,7 @@ const addCategoria = function(categoria, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/categorias`
-            : process.env.VUE_APP_URL + ``,
+            : process.env.VUE_APP_URL + `categorias`,
         ContentType: 'application/json',
         data: categoria,
         headers: {
@@ -63,7 +63,7 @@ const updateCategoria = function(categoria, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/categorias`
-            : process.env.VUE_APP_URL + ``,
+            : process.env.VUE_APP_URL + `categorias`,
         ContentType: 'application/json',
         data: categoria,
         headers: {
@@ -87,7 +87,7 @@ const deleteCategoria = function(codCategoria, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/categorias/${codCategoria}`
-            : process.env.VUE_APP_URL + ``,
+            : process.env.VUE_APP_URL + `categorias/${codCategoria}`,
         headers: {
           'auth-token': token
         }
@@ -116,7 +116,7 @@ const getProductos = function(token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/productos`
-            : process.env.VUE_APP_URL + ``,
+            : process.env.VUE_APP_URL + `productos`,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
@@ -144,7 +144,7 @@ const addProducto = function(producto, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/productos`
-            : process.env.VUE_APP_URL + ``,
+            : process.env.VUE_APP_URL + `productos`,
         ContentType: 'application/json',
         data: producto,
         headers: {
@@ -166,7 +166,7 @@ const updateProducto = function(producto, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/productos/`
-            : process.env.VUE_APP_URL + ``,
+            : process.env.VUE_APP_URL + `productos`,
         ContentType: 'application/json',
         data: producto,
         headers: {
@@ -190,7 +190,7 @@ const deleteProducto = function(producto, token) {
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/productos/${producto.NumeroIdentificacion}/${producto.CodProducto}`
             : process.env.VUE_APP_URL +
-              `/:${producto.NumeroIdentificacion}/:${producto.CodProducto}`,
+              `/${producto.NumeroIdentificacion}/${producto.CodProducto}`,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
@@ -221,7 +221,7 @@ const getUsuarios = function(token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/user`
-            : process.env.VUE_APP_URL,
+            : process.env.VUE_APP_URL + `user`,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
@@ -251,7 +251,7 @@ const addUsuario = function(usuario, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/user/register`
-            : process.env.VUE_APP_URL + ``,
+            : process.env.VUE_APP_URL + `register`,
         ContentType: 'application/json',
         data: usuario,
         headers: {
@@ -276,7 +276,7 @@ const updateUsuario = function(usuario, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/user/`
-            : process.env.VUE_APP_URL,
+            : process.env.VUE_APP_URL + `user`,
         ContentType: 'application/json',
         data: usuario,
         headers: {
@@ -300,7 +300,7 @@ const updateUsuarioClave = function(usuario, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/user/pwdChange/`
-            : process.env.VUE_APP_URL,
+            : process.env.VUE_APP_URL + `pwdChange`,
         ContentType: 'application/json',
         data: usuario,
         headers: {
@@ -324,7 +324,7 @@ const loginUsuario = function(loginUsuario, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/user/login/`
-            : process.env.VUE_APP_URL,
+            : process.env.VUE_APP_URL + `login`,
         ContentType: 'application/json',
         data: loginUsuario
         // headers : {
@@ -361,7 +361,7 @@ const deleteUsuario = function(usuario, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/user/${usuario.IdUsuario}`
-            : process.env.VUE_APP_URL + `/${usuario.IdUsuario}`,
+            : process.env.VUE_APP_URL + `${usuario.IdUsuario}`,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
@@ -391,7 +391,7 @@ const getEmpresas = function(token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/empresas`
-            : process.env.VUE_APP_URL + ``,
+            : process.env.VUE_APP_URL + `empresas`,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
