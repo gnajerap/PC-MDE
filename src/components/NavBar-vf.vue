@@ -53,7 +53,7 @@ export default {
   async created() {
     console.log('Pase por el created:')
     await this.$store.dispatch('loadUserLoggedAction')
-    
+    console.log('Environment Vars:', process.env)
   },
   methods: {
     logout() {
