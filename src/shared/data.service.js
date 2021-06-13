@@ -11,7 +11,7 @@ const getCategorias = function(token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/categorias`
-            : process.env.VUE_APP_UR + ``,
+            : process.env.VUE_APP_URL + ``,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
@@ -116,7 +116,7 @@ const getProductos = function(token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/productos`
-            : process.env.VUE_APP_UR + ``,
+            : process.env.VUE_APP_URL + ``,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
@@ -166,7 +166,7 @@ const updateProducto = function(producto, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/productos/`
-            : process.env.VUE_APP_UR + ``,
+            : process.env.VUE_APP_URL + ``,
         ContentType: 'application/json',
         data: producto,
         headers: {
@@ -391,7 +391,7 @@ const getEmpresas = function(token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/empresas`
-            : process.env.VUE_APP_UR + ``,
+            : process.env.VUE_APP_URL + ``,
         ContentType: 'application/json',
         headers: {
           'auth-token': token
