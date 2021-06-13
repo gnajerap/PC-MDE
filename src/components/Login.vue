@@ -4,10 +4,13 @@
     <v-row class="signing">
       <v-col cols="8" class="left">
         <v-row>
-          <h1 class="text-center pa-5">Ceviches de la esquina</h1>
+          <h1 class="text-center pa-5">Ceviches de la Esquina</h1>
           <h3 class="text-center pa-5 text-capitalize">
-            Bienvenido, Sistema de Control de Facturación, e Inventarios
+            Bienvenido, Sistema de Control de Facturación
           </h3>
+          <h4 class="text-center pa-5">
+            Desarrollado por Gerardo Nájera Picado, Copyright &copy;
+          </h4>
         </v-row>
         <v-row> </v-row>
       </v-col>
