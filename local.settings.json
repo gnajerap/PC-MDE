@@ -1,8 +1,0 @@
-{
-  "IsEncrypted": false,
-  "Values": {
-    "AzureWebJobsStorage": "",
-    "FUNCTIONS_WORKER_RUNTIME": "node",
-    "Vue_app_URL_Fc": "https://cde-api.azurewebsites.net/api/"
-  }
-}
