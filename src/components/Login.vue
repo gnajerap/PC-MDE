@@ -12,7 +12,9 @@
             Desarrollado por Gerardo Nájera Picado, Copyright &copy;
           </h4>
         </v-row>
-        <v-row> </v-row>
+        <v-row>
+          <div>{{ message }}</div>
+        </v-row>
       </v-col>
       <v-col cols="4" class="right">
         <h3 class="caption text-center text-capitalize">
@@ -82,6 +84,7 @@ export default {
     return {
       loginUsuario: 'gnajerap',
       loginClave: '1740523Ampa',
+      message: '',
       valid: false,
       rules: {
         required: (value) => !!value || 'Requerido.',
@@ -127,6 +130,12 @@ export default {
           console.log('Error en login: ', err)
         })
     },
+  },
+  async mounted() {
+    const { text } = await (await fetch('/api/message')).json()
+    console.log('pase por el mounted', text)
+    //const text = "prueba";
+    this.message = text.data
   },
 }
 </script>
