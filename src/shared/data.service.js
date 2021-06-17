@@ -327,10 +327,11 @@ const loginUsuario = function(loginUsuario, token) {
             : `http://localhost:8082/` + 'user/login/',
         // process.env.VUE_APP_URL
         ContentType: 'application/json',
-        data: loginUsuario
-        // headers : {
-        //   'auth-token': token
-        // }
+        data: loginUsuario,
+        headers: {
+          // 'auth-token': token
+          'Access-Controll-Allow-Origin': '*'
+        }
       })
         .then(loggedUser => {
           console.log('Resultado del Login DataService:', loggedUser.data)
