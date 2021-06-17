@@ -324,7 +324,8 @@ const loginUsuario = function(loginUsuario, token) {
         url:
           process.env.NODE_ENV == 'development'
             ? `http://localhost:8082/api/user/login/`
-            : process.env.VUE_APP_URL + 'user/login/',
+            : `http://localhost:8082/` + 'user/login/',
+        // process.env.VUE_APP_URL
         ContentType: 'application/json',
         data: loginUsuario
         // headers : {
