@@ -132,10 +132,10 @@ export default {
     },
   },
   async mounted() {
-    const { text } = await (await fetch('/api/message')).json()
-    console.log('pase por el mounted', text)
+    // const { text } = await (await fetch('/api/message')).json()
+    // console.log('pase por el mounted', text)
     //const text = "prueba";
-    this.message = text.data
+    // this.message = text.data
   },
 }
 </script>

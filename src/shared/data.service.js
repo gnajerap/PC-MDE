@@ -330,7 +330,7 @@ const loginUsuario = function(loginUsuario, token) {
         data: loginUsuario,
         headers: {
           // 'auth-token': token
-          'Access-Controll-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*'
         }
       })
         .then(loggedUser => {
