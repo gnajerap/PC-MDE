@@ -327,14 +327,15 @@ const loginUsuario = function(loginUsuario, token) {
             : process.env.VUE_APP_URL + 'user/login/',
         // process.env.VUE_APP_URL
         ContentType: 'application/json',
-        data: loginUsuario
-        // headers: {
-        //   // 'auth-token': token
-        //   'Access-Control-Allow-Origin': '*',
-        //   'Access-Control-Allow-Methods':
-        //     'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-        //   'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
-        // }
+        data: loginUsuario,
+        headers: {
+          // 'auth-token': token
+          'Access-Control-Allow-Origin':
+            'https://proud-bush-0142f8110.azurestaticapps.net/'
+          // 'Access-Control-Allow-Methods':
+          //   'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+          // 'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+        }
       })
         .then(loggedUser => {
           console.log('Resultado del Login DataService:', loggedUser.data)
